@@ -55,13 +55,15 @@ class FetchCSV
     $buffer = mb_convert_encoding($buffer, 'UTF-8', $from_encoding);
 
     // 一時ファイル生成してファイルポインタをクラス変数に代入
-    $this->setFilePointer(tmpFile());
+    $file_pointer = tmpFile();
 
     // 一時ファイルを生成できなければfalseを返す
-    if(false === $this->getFilePointer())
+    if(false === $file_pointer)
     {
       return false;
     }
+
+    $this->setFilePointer($file_pointer);
 
     // エンコードした文字列を一時ファイルに書き込み
     // 書き込みに失敗した場合はfalseを返す
