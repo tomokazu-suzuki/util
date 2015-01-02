@@ -141,7 +141,18 @@ class FetchCSV
    */
   public function closeFile()
   {
-    return fclose($this->getFilePointer());
+    if(null === $this->getFilePointer())
+    {
+      return false;
+    }
+
+    if(true === fclose($this->getFilePointer()))
+    {
+      $this->setFilePointer(null);
+      return true;
+    }
+
+    return false;
   }
 
 
